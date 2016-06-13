@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es3",
+    "sourceMap": true,
+    "allowJs": true,
+    "moduleResolution": "classic",
+    "removeComments": true,
+    "outDir": "node_modules"
+  },
+  "files": [
+    "typings/index.d.ts",
+    "app/editor.ts",
+    "app/app.ts"
+  ]
+}
