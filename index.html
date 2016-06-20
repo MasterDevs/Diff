@@ -4,22 +4,23 @@
 <head>
 	<meta charset="UTF-8">
 	<title>This be a file title</title>
-	<script src="./lib/jquery.min.js" type="text/javascript"></script>
-
-	<!-- Requires CodeMirror -->
-	<script type="text/javascript" src="./lib/codemirror.js"></script>
-	<link type="text/css" rel="stylesheet" href="./lib/codemirror.css" />
-
-	<!-- Requires Mergely -->
-	<script type="text/javascript" src="./lib/mergely.js"></script>
-	<link type="text/css" rel="stylesheet" href="./lib/mergely.css" />
+	<script>window.$ = window.jQuery = require('./lib/jquery.min.js');</script>
+	<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+	<link type="text/css" rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css" />
 </head>
 
 <body>
-	<div id="mergely-resizer" style="width:98%">
-		<div id="compare">
+
+	<div id="header">
+		<h2>Simple Diff</h2>
+		<div class="text-center">
+			<button id="swap_button" class="btn btn-default"><i class="fa fa-2x fa-arrows-h"></i></button>
 		</div>
 	</div>
+	<div id="container" style="border:1px solid grey;"></div>
+
+	<script src="./node_modules/monaco-editor/min/vs/loader.js"></script>
 	<!-- The App -->
 	<script type="text/javascript" src="./node_modules/app.js"></script>
 </body>

@@ -9,7 +9,6 @@
   },
   "files": [
     "typings/index.d.ts",
-    "app/editor.ts",
     "app/app.ts"
   ]
 }
