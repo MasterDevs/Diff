@@ -1,4 +1,6 @@
 const electron = require('electron')
+const {ipcMain} = require('electron');
+
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -11,7 +13,7 @@ let mainWindow
 
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1400, height: 600})
+  mainWindow = new BrowserWindow({ width: 1400, height: 600 })
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`)
@@ -26,26 +28,6 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null
   });
-
-  //-- Setup Menu bars
-  let template = [
-    {
-      label: "File",
-      submenu: [{
-        label: 'Test',
-        accelerator: 'CmdOrCtrl+M',
-        click: function () { alert("Test") }
-      }, {
-          label: 'Open Google',
-          accelerator: 'CmdOrCtrl+W',
-          click: function () {
-            electron.shell.openExternal('http://google.com')
-          }
-        }]
-    }
-  ];
-  const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
 }
 
 // This method will be called when Electron has finished
@@ -72,3 +54,59 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+ipcMain.on('update-menu', (event, arg) => {
+
+  var template = [
+    // {
+    //   label: "File",
+    //   submenu: [{
+    //     label: 'Test',
+    //     accelerator: 'CmdOrCtrl+M',
+    //     click: function () { alert("Test") }
+    //   }, {
+    //       label: 'Open Google',
+    //       accelerator: 'CmdOrCtrl+W',
+    //       click: function () {
+    //         //electron.shell.openExternal('http://google.com')
+    //       }
+    //     }]
+    // },
+    {
+      label: "Panels",
+      submenu: [
+        {
+          label: "Swap",
+          accelerator: "Shift+CmdOrCtrl+P",
+          click: () => {
+            mainWindow.webContents.send("swap-panels");
+          }
+        }
+      ]
+    },
+    {
+      label: "Language",
+      submenu: arg.languages.map(l => {
+        return {
+          label: l,
+          click: () => {
+            mainWindow.webContents.send('select-language', l);
+          }
+        };
+      })
+    },
+    {
+      label: "Theme",
+      submenu: arg.themes.map(t => {
+        return {
+          label: t,
+          click: () => {
+            mainWindow.webContents.send('select-theme', t);
+          }
+        };
+      })
+    }
+  ];
+
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
+})

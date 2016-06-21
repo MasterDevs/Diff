@@ -3,23 +3,55 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>This be a file title</title>
-	<script>window.$ = window.jQuery = require('./lib/jquery.min.js');</script>
+	<title>Monaco Diff</title>
+	<script>
+		//-- Initialize JQuery
+		window.$ = window.jQuery = require('./lib/jquery.min.js');
+		//-- Initialize Require (as it'll be overrided by monaco's loader.js)
+		if (window.require) {
+			window.nodeRequire = window.require;
+		}
+	</script>
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
 	<link type="text/css" rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
 	<link type="text/css" rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css" />
+
+	<style>
+		html {
+			position: relative;
+			min-height: 100%;
+		}
+		
+		body {
+			margin: 0;
+		}
+		
+		.footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			/* Set the fixed height of the footer here */
+			height: 30px;
+			background-color: #007ACC;
+			color: White;
+			padding-left: 10px;
+			padding-top:4px;
+		}
+	</style>
 </head>
 
 <body>
 
-	<div id="header">
-		<h2>Simple Diff</h2>
-		<div class="text-center">
-			<button id="swap_button" class="btn btn-default"><i class="fa fa-2x fa-arrows-h"></i></button>
-		</div>
-	</div>
-	<div id="container" style="border:1px solid grey;"></div>
+	<div id="editor"></div>
 
+
+	<footer class="footer">
+		 Lines Changed: <span id="totalDiffs"></span> | <span id="currentLanguage"></span>
+	</footer>
+
+	<script>
+		
+	</script>
 	<script src="./node_modules/monaco-editor/min/vs/loader.js"></script>
 	<!-- The App -->
 	<script type="text/javascript" src="./node_modules/app.js"></script>
